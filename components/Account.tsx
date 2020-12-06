@@ -17,7 +17,7 @@ const Account = ({ triedToEagerConnect }) => {
   } = useWeb3React();
 
   // initialize metamask onboarding
-  const onboarding = useRef();
+  const onboarding = useRef(null);
 
   useLayoutEffect(() => {
     onboarding.current = new MetaMaskOnboarding();
@@ -52,10 +52,9 @@ const Account = ({ triedToEagerConnect }) => {
       <div>
         {hasMetaMaskOrWeb3Available ? (
           <button
-            isLoading={connecting}
+            className="btn-thicc btn-primary"
             onClick={() => {
               setConnecting(true);
-
               activate(injected, undefined, true).catch((error) => {
                 // ignore the error if it's a user rejected request
                 if (error instanceof UserRejectedRequestError) {
@@ -71,7 +70,9 @@ const Account = ({ triedToEagerConnect }) => {
               : "Connect to Wallet"}
           </button>
         ) : (
-          <button onClick={() => onboarding.current?.startOnboarding()}>
+        <button 
+          className="btn-thicc btn-primary"
+          onClick={() => onboarding.current?.startOnboarding()}>
             Install Metamask
           </button>
         )}

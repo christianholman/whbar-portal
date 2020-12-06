@@ -1,5 +1,13 @@
 import { Web3Provider } from "@ethersproject/providers";
 import { Web3ReactProvider } from "@web3-react/core";
+import "../styles/global.css";
+
+declare global {
+    interface Window {
+        ethereum:any;
+        web3:any;
+    }
+}
 
 function getLibrary(provider) {
   return new Web3Provider(provider);
