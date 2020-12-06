@@ -5,24 +5,12 @@ import Link from "next/link";
 import Account from "../components/Account";
 import WHBARBalance from "../components/WHBARBalance";
 import useEagerConnect from "../hooks/useEagerConnect";
-import usePersonalSign, { hexlify } from "../hooks/usePersonalSign";
-import useContract from "../hooks/useContract";
-import { whbarABI } from "../util";
 import Deposits from "../components/Deposits";
 
 export default function Home() {
   const { account, library } = useWeb3React();
 
   const triedToEagerConnect = useEagerConnect();
-
-  const sign = usePersonalSign();
-
-  const handleSign = async () => {
-    const msg = "Next Web3 Boilerplate Rules";
-    const sig = await sign(msg);
-    console.log(sig);
-    console.log("isValid", verifyMessage(msg, sig) === account);
-  };
 
   const isConnected = typeof account === "string" && !!library;
 
@@ -47,7 +35,6 @@ export default function Home() {
         {isConnected && (
           <section className="container mx-auto max-w-4xl">
             <WHBARBalance />
-            <button onClick={handleSign}>Personal Sign</button>
             <Deposits account={account}/>
           </section>
         )}
