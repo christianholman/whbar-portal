@@ -11,7 +11,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 const Deposits: React.FC<DepositsProps> = (props) => {
 
-  const whbarContract = useWHBARContract("0x9Ec09E93d11148F0566889FbB9a4632B6178b8af");
+  const whbarContract = useWHBARContract("0x1dc8c0a7CAC629d286F0186e774E49ac41BEa874");
 
   const [deposits, setDeposits] = useState([]);
   const { data, error } = useSWR(
@@ -24,25 +24,62 @@ const Deposits: React.FC<DepositsProps> = (props) => {
 
   useEffect(() => {
     (async () => {
-      let newDeposits = [];
-      const transactions = data.transactions.filter(transaction => transaction.memo === props.account)
-      for(let i = 0; i < transactions.length; i++) {
-        const isConfirmed = await whbarContract.checkTxHash(transactions[i].hash)
-        newDeposits.push({
-          ...transactions[i],
-          isConfirmed
-        })
+      if (!!data) {
+        let newDeposits = [];
+        const transactions = data.transactions.filter(transaction => transaction.memo === props.account)
+        for(let i = 0; i < transactions.length; i++) {
+          const amount = transactions[i].transfers.find(transfer => transfer.account === "0.0.5814").amount;
+          let isValidated = false;
+          try {
+            await whbarContract.estimateGas.verifyDeposit(transactions[i].hash, props.account, amount.toString());
+          } catch (e) {
+            console.log(e)
+            isValidated = true;
+          }
+          newDeposits.push({
+            ...transactions[i],
+            amount,
+            isValidated,
+          })
+        }
+        setDeposits(newDeposits)
       }
-      setDeposits(newDeposits)
     })()
   }, [data])
 
+  const handleMint = async (hash, beneficiary, amount) => {
+    // https://testnet.dragonglass.me/api/transactions?accountTo=0.0.5814&memo=0x372AF201cCf4e72C60A3ca4C6f0D5df433a32daC
+    // ADD DATE! Only searches last 10k transactions on Hedera
+    whbarContract.verifyDeposit(
+      hash,
+      beneficiary,
+      amount.toString(),
+      {
+        gasLimit: 5000000
+      }
+    );
+  }
+
   return (
-    <div>
+    <div className="space-y-4">
       {!data && "Loading..."}
       {error && error}
       {data && 
-        deposits.map((deposit) => (<span>{deposit.isConfirmed.toString()}</span>))
+        deposits.map((deposit) => (
+          <div className="flex flex-row justify-between shadow rounded p-4">
+            <span>{deposit.amount / (10**8)} wHBAR</span>
+            {
+              !deposit.isValidated ? (
+                <button 
+                  className="btn"
+                  onClick={() => handleMint(deposit.hash, props.account, deposit.amount)}
+                >Mint</button>
+              ) : (
+                null
+              )
+            }
+          </div>)
+        )
       }
     </div>
   );

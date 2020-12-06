@@ -4,7 +4,7 @@ import useWHBARContract from "../hooks/useWHBARContract";
 
 const WHBARBalance = () => {
   const { account } = useWeb3React();
-  const whbarContract = useWHBARContract("0x9Ec09E93d11148F0566889FbB9a4632B6178b8af");
+  const whbarContract = useWHBARContract("0x1dc8c0a7CAC629d286F0186e774E49ac41BEa874");
 
   const [whbarBalance, setWhbarBalance] = useState<string>();
 
