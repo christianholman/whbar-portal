@@ -6,51 +6,54 @@ type DepositsProps = {
   account: string,
 };
 
+//@ts-ignore
 const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
-export default function Deposits () {
+const Deposits: React.FC<DepositsProps> = (props) => {
 
-  const [deposits, setDeposits] = useState(null);
+  const [deposits, setDeposits] = useState([]);
   const whbarContract = useWHBARContract("0x9Ec09E93d11148F0566889FbB9a4632B6178b8af");
 
   const { data, error } = useSWR(
-    "https://cors-anywhere.herokuapp.com/https://testnet.dragonglass.me/api/transactions?accountTo=0.0.5814&memo=0x372AF201cCf4e72C60A3ca4C6f0D5df433a32daC&consensusStartInEpoch=1536710400", 
+    "http://api.testnet.kabuto.sh/v1/account/0.0.5814/transaction?",
     fetcher,
     { 
-      refreshInterval: 1000 
+      refreshInterval: 1000,
+      onSuccess: (data) => {
+        if(data) {
+          let newDeposits = [];
+          const transactions = data.transactions.filter(transaction => transaction.memo === props.account)
+          transactions.map(async transaction => {
+            const isConfirmed = await whbarContract.checkTxHash(transaction.hash);
+            const newDeposit = {
+              ...transaction,
+              isConfirmed,
+            }
+              newDeposits.push(newDeposit);
+          })
+          setDeposits(newDeposits);
+        }
+      }
     }
   );
 
-  useEffect(() => {
-    if (data) {
-      let newDeposits = [];
-      data.data.map(transaction => {
-        whbarContract.checkTxHash(transaction.transactionHash).then(isConfirmed => {
-          newDeposits.push({
-            ...transaction,
-            isConfirmed,
-          });
-        });
-      });
-      setDeposits(newDeposits);
-    }
-    console.log(deposits)
-  }, [data])
+  const renderDeposits = () => {
+    const d = deposits.map(deposit => (
+      <div className="p-24 bg-red-900"></div>
+    ))
+    console.log(d)
+    return d;
+  }
 
-  if (error) return <div>failed to load</div>
-  if (!data) return <div>loading...</div>
-  
-  return deposits ? (
+  return (
     <div>
-    {
-      deposits.map(deposit => (
-        <div>
-          {JSON.stringify(deposit)}
-        </div>
-      ))
-    }
+      {!data && "Loading..."}
+      {error && error}
+      {data && 
+        renderDeposits()
+      }
     </div>
-  ) : (
-    <span>No deposits</span>
   );
 };
+
+export default Deposits;

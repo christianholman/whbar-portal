@@ -67,7 +67,7 @@ export default function Home() {
             <WHBARBalance />
             <button onClick={handleSign}>Personal Sign</button>
             <button onClick={handleContractInteract}>Contract interact</button>
-            <Deposits />
+            <Deposits account={account}/>
           </section>
         )}
       </main>
