@@ -11,46 +11,38 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 const Deposits: React.FC<DepositsProps> = (props) => {
 
-  const [deposits, setDeposits] = useState([]);
   const whbarContract = useWHBARContract("0x9Ec09E93d11148F0566889FbB9a4632B6178b8af");
 
+  const [deposits, setDeposits] = useState([]);
   const { data, error } = useSWR(
     "http://api.testnet.kabuto.sh/v1/account/0.0.5814/transaction?",
     fetcher,
     { 
       refreshInterval: 1000,
-      onSuccess: (data) => {
-        if(data) {
-          let newDeposits = [];
-          const transactions = data.transactions.filter(transaction => transaction.memo === props.account)
-          transactions.map(async transaction => {
-            const isConfirmed = await whbarContract.checkTxHash(transaction.hash);
-            const newDeposit = {
-              ...transaction,
-              isConfirmed,
-            }
-              newDeposits.push(newDeposit);
-          })
-          setDeposits(newDeposits);
-        }
-      }
     }
   );
 
-  const renderDeposits = () => {
-    const d = deposits.map(deposit => (
-      <div className="p-24 bg-red-900"></div>
-    ))
-    console.log(d)
-    return d;
-  }
+  useEffect(() => {
+    (async () => {
+      let newDeposits = [];
+      const transactions = data.transactions.filter(transaction => transaction.memo === props.account)
+      for(let i = 0; i < transactions.length; i++) {
+        const isConfirmed = await whbarContract.checkTxHash(transactions[i].hash)
+        newDeposits.push({
+          ...transactions[i],
+          isConfirmed
+        })
+      }
+      setDeposits(newDeposits)
+    })()
+  }, [data])
 
   return (
     <div>
       {!data && "Loading..."}
       {error && error}
       {data && 
-        renderDeposits()
+        deposits.map((deposit) => (<span>{deposit.isConfirmed.toString()}</span>))
       }
     </div>
   );
