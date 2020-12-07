@@ -11,7 +11,7 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 const Deposits: React.FC<DepositsProps> = (props) => {
 
-  const whbarContract = useWHBARContract("0x1dc8c0a7CAC629d286F0186e774E49ac41BEa874");
+  const whbarContract = useWHBARContract(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS);
 
   const [deposits, setDeposits] = useState([]);
   const { data, error } = useSWR(

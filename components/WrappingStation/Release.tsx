@@ -9,7 +9,7 @@ type ReleaseProps = {
 
 const Release: React.FC<ReleaseProps> = () => {
   const { account } = useWeb3React();
-  const whbarContract = useWHBARContract("0x1dc8c0a7CAC629d286F0186e774E49ac41BEa874");
+  const whbarContract = useWHBARContract(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS);
 
 
   const [whbarBalance, setWhbarBalance] = useState(0);
