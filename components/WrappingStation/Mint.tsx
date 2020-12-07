@@ -13,7 +13,7 @@ const Mint: React.FC<MintProps> = () => {
         />
       </div>
       <div className="flex flex-col space-y-2">
-        <div className="border p-4 flex flex-col w-full items-start rounded shadow">
+        <div className="border p-4 flex flex-col w-full items-start rounded">
           <label htmlFor="company_website" className="block text-sm font-medium text-gray-700 mb-1">
             Account
           </label>
@@ -21,7 +21,7 @@ const Mint: React.FC<MintProps> = () => {
             <span className="text-sm text-gray-400">{`0.0.5184`}</span>
           </div>
         </div>
-        <div className="border p-4 flex flex-col w-full items-start rounded shadow">
+        <div className="border p-4 flex flex-col w-full items-start rounded">
           <label htmlFor="company_website" className="block text-sm font-medium text-gray-700 mb-1">
             Memo
           </label>
