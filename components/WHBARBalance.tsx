@@ -9,7 +9,6 @@ const WHBARBalance = () => {
   const [whbarBalance, setWhbarBalance] = useState<string>();
 
   useEffect(() => {
-    console.log(whbarContract)
     whbarContract.decimals().then(decimals => {
       whbarContract.balanceOf(account).then(balance => {
         setWhbarBalance((balance / 10**(decimals)).toString());

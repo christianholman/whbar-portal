@@ -1,5 +1,4 @@
 import { useWeb3React } from "@web3-react/core";
-import { release } from "process";
 import { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
 import useWHBARContract from "../../hooks/useWHBARContract";
@@ -12,14 +11,16 @@ const Release: React.FC<ReleaseProps> = () => {
   const { account } = useWeb3React();
   const whbarContract = useWHBARContract("0x1dc8c0a7CAC629d286F0186e774E49ac41BEa874");
 
-  const [whbarBalance, setWhbarBalance] = useState<string>();
+
+  const [whbarBalance, setWhbarBalance] = useState(0);
   const [releaseAmount, setReleaseAmount] = useState("");
+  const [actualReleaseAmount, setActualReleaseAmount] = useState(0)
   const [accountId, setAccountId] = useState("");
 
   useEffect(() => {
     whbarContract.decimals().then(decimals => {
       whbarContract.balanceOf(account).then(balance => {
-        setWhbarBalance((balance / 10**(decimals)).toString());
+        setWhbarBalance((balance / 10**(decimals)));
       });
     });
   });
@@ -38,8 +39,8 @@ const Release: React.FC<ReleaseProps> = () => {
     return /(^\d+.\d+.[1-9]\d*$)/.test(accountId);
   }
 
-  const canAfford = () => {
-    return parseInt(releaseAmount) <= parseFloat(whbarBalance)
+  const canAfford = (): boolean => {
+    return actualReleaseAmount <= whbarBalance
   }
 
   const isValid = (): boolean => {
@@ -56,8 +57,13 @@ const Release: React.FC<ReleaseProps> = () => {
       <div className="flex flex-col space-y-4">
         <div>
           <NumberFormat 
+            autoFocus
             className="release-amount-input text-2xl w-full focus:outline-none text-center p-12 font-medium"
             allowLeadingZeros={false}
+            onValueChange={values => {
+              const { floatValue } = values;
+              setActualReleaseAmount(floatValue);
+            }}
             isAllowed={(values) => {
               const { formattedValue, floatValue } = values;
               return formattedValue === "" || floatValue >= 0;
@@ -74,7 +80,7 @@ const Release: React.FC<ReleaseProps> = () => {
           <span className="text-sm">wHBAR Balance</span>
           <a
             className={`text-blue-500 cursor-pointer underline text-sm `}
-            onClick={() => setReleaseAmount(whbarBalance)}>
+            onClick={() => setReleaseAmount(whbarBalance.toString())}>
               {whbarBalance} wHBAR
           </a>
         </div>

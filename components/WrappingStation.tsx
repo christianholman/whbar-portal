@@ -11,7 +11,6 @@ type DepositBoxProps = {
 
 };
 
-
 const WrappingStation: React.FC<DepositBoxProps> = () => {
   const [currentTab, setCurrentTab] = useState<WrappingStationTab>(WrappingStationTab.MINT);
 
