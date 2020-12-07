@@ -62,8 +62,8 @@ const Deposits: React.FC<DepositsProps> = (props) => {
       {!data && "Loading..."}
       {error && error}
       {data && 
-        deposits.map((deposit) => (
-          <div className="flex flex-row justify-between shadow rounded p-4 items-center bg-white">
+        deposits.map((deposit, i) => (
+          <div className="flex flex-row justify-between shadow rounded p-4 items-center bg-white" key={i}>
             <span className="font-medium">{deposit.amount / (10**8)} wHBAR</span>
             {
               !deposit.isValidated ? (

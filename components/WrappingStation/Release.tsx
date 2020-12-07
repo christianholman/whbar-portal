@@ -89,7 +89,7 @@ const Release: React.FC<ReleaseProps> = () => {
         </div>
         <button 
           disabled={!isValid()}
-          onClick={() => handleRelease(releaseAmount, "0.0.6036")}
+          onClick={() => handleRelease(releaseAmount, accountId)}
           className="transition text-lg px-4 py-2 font-medium text-white bg-blue-500 rounded shadow disabled:bg-gray-200 disabled:text-gray-400 disabled:shadow-none disabled:cursor-default">Release
         </button>
       </div>
