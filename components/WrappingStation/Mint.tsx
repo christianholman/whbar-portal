@@ -18,7 +18,7 @@ const Mint: React.FC<MintProps> = () => {
             Account
           </label>
           <div className="rounded w-full flex justify-between">
-            <span className="text-sm text-gray-400">{`0.0.5184`}</span>
+            <span className="text-sm text-gray-400">{`0.0.5814`}</span>
           </div>
         </div>
         <div className="border p-4 flex flex-col w-full items-start rounded">
