@@ -15,7 +15,7 @@ const Deposits: React.FC<DepositsProps> = (props) => {
 
   const [deposits, setDeposits] = useState([]);
   const { data, error } = useSWR(
-    "http://api.testnet.kabuto.sh/v1/account/0.0.5814/transaction?",
+    "https://api.testnet.kabuto.sh/v1/account/0.0.5814/transaction?",
     fetcher,
     { 
       refreshInterval: 1000,
