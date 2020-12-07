@@ -47,8 +47,6 @@ const Deposits: React.FC<DepositsProps> = (props) => {
   }, [data])
 
   const handleMint = async (hash, beneficiary, amount) => {
-    // https://testnet.dragonglass.me/api/transactions?accountTo=0.0.5814&memo=0x372AF201cCf4e72C60A3ca4C6f0D5df433a32daC
-    // ADD DATE! Only searches last 10k transactions on Hedera
     whbarContract.verifyDeposit(
       hash,
       beneficiary,

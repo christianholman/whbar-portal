@@ -34,7 +34,7 @@ const Release: React.FC<ReleaseProps> = () => {
     );
   };
 
-  const validAccountID = () => {
+  const validAccountId = () => {
     return /(^\d+.\d+.[1-9]\d*$)/.test(accountId);
   }
 
@@ -46,7 +46,7 @@ const Release: React.FC<ReleaseProps> = () => {
     return (
       parseInt(releaseAmount) > 0 && 
       canAfford() && 
-      validAccountID()
+      validAccountId()
     )
   }
 
@@ -79,7 +79,7 @@ const Release: React.FC<ReleaseProps> = () => {
           </a>
         </div>
         <div className="text-gray-700 focus-within:text-blue-500 border p-4 flex flex-col w-full items-start rounded shadow transition">
-          <label htmlFor="company_website" className={`block text-sm font-medium mb-1 ${!validAccountID() ? "text-red-500" : ""}`}>
+          <label htmlFor="company_website" className={`block text-sm font-medium mb-1 ${!validAccountId() && accountId !== "" ? "text-red-500" : ""}`}>
             Destination 
           </label>
           <input 
