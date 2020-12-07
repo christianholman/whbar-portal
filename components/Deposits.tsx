@@ -33,7 +33,6 @@ const Deposits: React.FC<DepositsProps> = (props) => {
           try {
             await whbarContract.estimateGas.verifyDeposit(transactions[i].hash, props.account, amount.toString());
           } catch (e) {
-            console.log(e)
             isValidated = true;
           }
           newDeposits.push({
@@ -61,17 +60,17 @@ const Deposits: React.FC<DepositsProps> = (props) => {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-2">
       {!data && "Loading..."}
       {error && error}
       {data && 
         deposits.map((deposit) => (
-          <div className="flex flex-row justify-between shadow rounded p-4">
-            <span>{deposit.amount / (10**8)} wHBAR</span>
+          <div className="flex flex-row justify-between shadow rounded p-4 items-center bg-white">
+            <span className="font-medium">{deposit.amount / (10**8)} wHBAR</span>
             {
               !deposit.isValidated ? (
                 <button 
-                  className="btn"
+                  className="px-4 py-2 bg-green-100 text-green-500 rounded-full font-medium text-sm transition hover:bg-green-200 focus:bg-green-300"
                   onClick={() => handleMint(deposit.hash, props.account, deposit.amount)}
                 >Mint</button>
               ) : (

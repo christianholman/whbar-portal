@@ -21,6 +21,7 @@
     "postcss": "^8.1.14",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-qr-code": "^1.0.3",
     "react-query": "^2.26.3",
     "swr": "^0.2.3",
     "tailwindcss": "^2.0.1"
