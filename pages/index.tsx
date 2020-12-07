@@ -3,7 +3,6 @@ import { useWeb3React } from "@web3-react/core";
 import Head from "next/head";
 import Link from "next/link";
 import Account from "../components/Account";
-import WHBARBalance from "../components/WHBARBalance";
 import useEagerConnect from "../hooks/useEagerConnect";
 import Deposits from "../components/Deposits";
 import WrappingStation from "../components/WrappingStation";
@@ -36,7 +35,7 @@ export default function Home() {
         {isConnected && (
           <>
             <section className="container mx-auto max-w-4xl space-y-4">
-              <WHBARBalance />
+              {/* <WHBARBalance /> */}
               <WrappingStation />
               <Deposits account={account}/>
             </section>
