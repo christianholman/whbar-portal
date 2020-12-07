@@ -1,6 +1,7 @@
 import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
+import useERC20Balance from "../../hooks/useERC20Balance";
 import useWHBARContract from "../../hooks/useWHBARContract";
 
 type ReleaseProps = {
@@ -11,19 +12,11 @@ const Release: React.FC<ReleaseProps> = () => {
   const { account } = useWeb3React();
   const whbarContract = useWHBARContract(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS);
 
-
-  const [whbarBalance, setWhbarBalance] = useState(0);
+  const { data: whbarBalance } = useERC20Balance(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS, account)
   const [releaseAmount, setReleaseAmount] = useState("");
   const [actualReleaseAmount, setActualReleaseAmount] = useState(0)
   const [accountId, setAccountId] = useState("");
 
-  useEffect(() => {
-    whbarContract.decimals().then(decimals => {
-      whbarContract.balanceOf(account).then(balance => {
-        setWhbarBalance((balance / 10**(decimals)));
-      });
-    });
-  });
 
   const handleRelease = async (amount, toAccount) => {
     whbarContract.withdraw(

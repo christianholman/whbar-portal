@@ -1,4 +1,4 @@
-import { verifyMessage } from "@ethersproject/wallet";
+import WHBARBalance from "../components/WHBARBalance";
 import { useWeb3React } from "@web3-react/core";
 import Head from "next/head";
 import Link from "next/link";
@@ -35,7 +35,7 @@ export default function Home() {
         {isConnected && (
           <>
             <section className="container mx-auto max-w-4xl space-y-4">
-              {/* <WHBARBalance /> */}
+              <WHBARBalance />
               <WrappingStation />
               <Deposits account={account}/>
             </section>

@@ -1,22 +1,11 @@
-import { useState, useEffect } from "react";
 import { useWeb3React } from "@web3-react/core";
-import useWHBARContract from "../hooks/useWHBARContract";
+import useERC20Balance from "../hooks/useERC20Balance";
 
 const WHBARBalance = () => {
   const { account } = useWeb3React();
-  const whbarContract = useWHBARContract(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS);
+  const { data } = useERC20Balance(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS, account);
 
-  const [whbarBalance, setWhbarBalance] = useState<string>();
-
-  useEffect(() => {
-    whbarContract.decimals().then(decimals => {
-      whbarContract.balanceOf(account).then(balance => {
-        setWhbarBalance((balance / 10**(decimals)).toString());
-      });
-    });
-  });
-
-  return <p>wHBAR Balance: Ξ{whbarBalance ? whbarBalance.toString() : "Loading"}</p>;
+  return <p>Balance: <span className="font-bold">{data + " wHBAR"}</span></p>;
 };
 
 export default WHBARBalance;

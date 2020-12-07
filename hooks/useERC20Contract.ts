@@ -2,6 +2,7 @@ import useContract from "./useContract";
 
 const ABI = [
   "function balanceOf(address owner) view returns (uint)",
+  "function decimals() view returns (uint8)",
   "function transfer(address to, uint amount)",
   "event Transfer(address indexed from, address indexed to, uint amount)",
 ];
