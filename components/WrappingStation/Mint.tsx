@@ -13,19 +13,19 @@ const Mint: React.FC<MintProps> = () => {
         />
       </div>
       <div className="flex flex-col space-y-2">
-        <div className="flex flex-col w-full items-start">
+        <div className="border p-4 flex flex-col w-full items-start rounded shadow">
           <label htmlFor="company_website" className="block text-sm font-medium text-gray-700 mb-1">
             Account
           </label>
-          <div className="p-2 rounded bg-gray-200 w-full flex justify-between">
-            <span className="text-sm text-gray-400">{`0.0.5814`}</span>
+          <div className="rounded w-full flex justify-between">
+            <span className="text-sm text-gray-400">{`0.0.5184`}</span>
           </div>
         </div>
-        <div className="flex flex-col w-full items-start">
+        <div className="border p-4 flex flex-col w-full items-start rounded shadow">
           <label htmlFor="company_website" className="block text-sm font-medium text-gray-700 mb-1">
             Memo
           </label>
-          <div className="p-2 rounded bg-gray-200 w-full flex justify-between">
+          <div className="rounded w-full flex justify-between">
             <span className="text-sm text-gray-400">{`0x372AF201cCf4e72C60A3ca4C6f0D5df433a32daC`}</span>
           </div>
         </div>

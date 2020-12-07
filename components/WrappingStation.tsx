@@ -31,7 +31,7 @@ const WrappingStation: React.FC<DepositBoxProps> = () => {
           className={`${currentTab === WrappingStationTab.MINT ? "text-blue-500 border-" : "text-gray-300"} py-4 transition`}
           onClick={() => setCurrentTab(WrappingStationTab.MINT)}
           >
-          Mint
+          Deposit
         </button>
         <button 
           className={`${currentTab === WrappingStationTab.RELEASE ? "text-blue-500" : "text-gray-300"} py-4 transition`}
