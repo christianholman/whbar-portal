@@ -15,7 +15,7 @@ const Deposit: React.FC<DepositProps> = ({ deposit, account }) => {
   const [waitingForValidation, setWaitingForValidation] = useLocalStorage("waitingForValidation", {})
   const [isWaiting, setIsWaiting] = useState(waitingForValidation[deposit.hash]?.waiting);
   const [ethTxHash, setEthTxHash] = useState(waitingForValidation[deposit.hash]?.ethHash)
-
+  const [isValidated, setIsValidated] = useState(true);
 
   const checkIfFailed = async () => {
     if(waitingForValidation[deposit.hash] && ethTxHash) {
@@ -29,7 +29,6 @@ const Deposit: React.FC<DepositProps> = ({ deposit, account }) => {
   useInterval(checkIfFailed, 1000);
 
   useEffect(() => {
-    console.log(`Saved state: ${JSON.stringify(waitingForValidation)}`)
     checkIfFailed();
   }, [])
 
@@ -41,7 +40,6 @@ const Deposit: React.FC<DepositProps> = ({ deposit, account }) => {
         amount.toString(),
         {
           gasLimit: 5000000,
-          value: 500000,
         },
       );
       setEthTxHash(receipt.hash);
@@ -53,7 +51,7 @@ const Deposit: React.FC<DepositProps> = ({ deposit, account }) => {
   }
 
   useEffect(() => {
-    if (isWaiting && !deposit.isValidated) {
+    if (isWaiting && !isValidated) {
       const newState = {
         ...waitingForValidation,
         [deposit.hash]: {
@@ -70,11 +68,17 @@ const Deposit: React.FC<DepositProps> = ({ deposit, account }) => {
     }
   }, [isWaiting])
 
-  return (
+  useEffect(() => {
+    (async () => {
+      setIsValidated(await whbarContract.checkTxHash(deposit.hash));
+    })()
+  });
+
+return (
     <div className="flex flex-row justify-between shadow rounded p-4 items-center bg-white">
       <span className="font-medium">{deposit.amount / (10**8)} wHBAR</span>
       {
-        !deposit.isValidated ? (
+        !isValidated ? (
           <button 
             disabled={isWaiting}
             className={`px-4 py-2 rounded-full font-medium text-sm transition flex ${isWaiting ? "bg-purple-500 text-white disabled:cursor-default" : "bg-green-100 text-green-500 hover:bg-green-200 focus:bg-green-300 "}`}

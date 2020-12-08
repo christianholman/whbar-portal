@@ -27,11 +27,9 @@ const Deposits: React.FC<DepositsProps> = (props) => {
             const transactions = data.transactions.filter(transaction => transaction.memo === props.account)
             for(let i = 0; i < transactions.length; i++) {
               const amount = transactions[i].transfers.find(transfer => transfer.account === "0.0.5814").amount;
-              let isValidated = await whbarContract.checkTxHash(transactions[i].hash);
               newDeposits.push({
                 ...transactions[i],
                 amount,
-                isValidated,
               })
             }
             setDeposits(newDeposits)
