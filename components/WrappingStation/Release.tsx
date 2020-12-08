@@ -22,7 +22,7 @@ const Release: React.FC<ReleaseProps> = () => {
       (parseInt(amount) * (10**8)).toString(),
       toAccount,
       {
-        gasLimit: 5000000
+        gasLimit: 5000000,
       }
     );
   };

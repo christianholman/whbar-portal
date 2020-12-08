@@ -3,6 +3,7 @@ import useWHBARContract from "../hooks/useWHBARContract";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useWeb3React } from "@web3-react/core";
 import useInterval from "react-useinterval";
+import { formatUnits } from "@ethersproject/units";
 
 type DepositProps = {
   deposit: any,
@@ -34,12 +35,14 @@ const Deposit: React.FC<DepositProps> = ({ deposit, account }) => {
 
   const handleMint = async (hash, beneficiary, amount) => {
     try {
+      const cost = await whbarContract.checkCost();
       const receipt = await whbarContract.verifyDeposit(
         hash,
         beneficiary,
         amount.toString(),
         {
-          gasLimit: 5000000,
+          gasLimit: 400000,
+          value: Math.floor(cost / 10) + Number(cost),
         },
       );
       setEthTxHash(receipt.hash);
