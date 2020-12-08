@@ -25,13 +25,13 @@ const WrappingStation: React.FC = () => {
         <button className={`border-b border-r border-transparent py-4 focus:outline-none ${currentTab === WrappingStationTab.MINT ? "text-blue-500" : "text-gray-400 border-gray-200 bg-gray-50"}`}
           onClick={() => setCurrentTab(WrappingStationTab.MINT)}
           >
-          Deposit
+            Wrap HBAR
         </button>
         <button 
           className={`border-b border-l border-transparent py-4 focus:outline-none ${currentTab === WrappingStationTab.RELEASE ? "text-blue-500" : "text-gray-400 border-gray-200 bg-gray-50"}`}
           onClick={() => setCurrentTab(WrappingStationTab.RELEASE)}
           >
-          Release
+            Unwrap wHBAR
         </button>
       </div>
       {

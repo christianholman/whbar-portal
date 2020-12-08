@@ -3,7 +3,6 @@ import useWHBARContract from "../hooks/useWHBARContract";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useWeb3React } from "@web3-react/core";
 import useInterval from "react-useinterval";
-import { formatUnits } from "@ethersproject/units";
 
 type DepositProps = {
   deposit: any,

@@ -47,10 +47,13 @@ const Release: React.FC<ReleaseProps> = () => {
   return (
     <div className="p-4">
       <div className="flex flex-col space-y-4">
-        <div>
+        <div className="py-12">
+          <span className="text-sm text-gray-400 select-none">
+            I want to unwrap
+          </span>
           <NumberFormat 
             autoFocus
-            className="release-amount-input text-2xl w-full focus:outline-none text-center p-12 font-medium"
+            className="release-amount-input text-2xl w-full focus:outline-none text-center py-4 font-medium"
             allowLeadingZeros={false}
             onValueChange={values => {
               const { floatValue } = values;
@@ -68,6 +71,9 @@ const Release: React.FC<ReleaseProps> = () => {
             value={releaseAmount}
             onChange={e => setReleaseAmount(e.target.value)}
           />
+          <span className="text-sm text-gray-400 select-none">
+            and receive HBAR
+          </span>
         </div>
         <div className="flex flex-row justify-between items-center">
           <span className="text-sm">wHBAR Balance</span>
