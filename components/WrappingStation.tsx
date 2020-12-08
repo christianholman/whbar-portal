@@ -7,11 +7,7 @@ enum WrappingStationTab {
   RELEASE,
 }
 
-type DepositBoxProps = {
-
-};
-
-const WrappingStation: React.FC<DepositBoxProps> = () => {
+const WrappingStation: React.FC = () => {
   const [currentTab, setCurrentTab] = useState<WrappingStationTab>(WrappingStationTab.MINT);
 
   const renderCurrentTab = () => {
@@ -26,8 +22,7 @@ const WrappingStation: React.FC<DepositBoxProps> = () => {
   return (
     <div className="border shadow rounded max-w-lg mx-auto bg-white">
       <div className="grid grid-cols-2">
-        <button 
-          className={`border-b border-r border-transparent py-4 focus:outline-none ${currentTab === WrappingStationTab.MINT ? "text-blue-500" : "text-gray-400 border-gray-200 bg-gray-50"}`}
+        <button className={`border-b border-r border-transparent py-4 focus:outline-none ${currentTab === WrappingStationTab.MINT ? "text-blue-500" : "text-gray-400 border-gray-200 bg-gray-50"}`}
           onClick={() => setCurrentTab(WrappingStationTab.MINT)}
           >
           Deposit
