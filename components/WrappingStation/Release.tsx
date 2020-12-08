@@ -17,7 +17,6 @@ const Release: React.FC<ReleaseProps> = () => {
   const [actualReleaseAmount, setActualReleaseAmount] = useState(0)
   const [accountId, setAccountId] = useState("");
 
-
   const handleRelease = async (amount, toAccount) => {
     whbarContract.withdraw(
       (parseInt(amount) * (10**8)).toString(),
@@ -38,9 +37,9 @@ const Release: React.FC<ReleaseProps> = () => {
 
   const isValid = (): boolean => {
     return (
-      parseInt(releaseAmount) > 0 && 
       canAfford() && 
-      validAccountId()
+      validAccountId() &&
+      actualReleaseAmount >= (10**-8)
     )
   }
 
@@ -61,6 +60,7 @@ const Release: React.FC<ReleaseProps> = () => {
               const { formattedValue, floatValue } = values;
               return formattedValue === "" || floatValue >= 0;
             }}
+            decimalScale={8}
             thousandSeparator={true} 
             placeholder="0 wHBAR"
             thousandsGroupStyle="thousand" 
