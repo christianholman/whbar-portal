@@ -12,8 +12,6 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 const Deposits: React.FC<DepositsProps> = (props) => {
 
-  const whbarContract = useWHBARContract(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS);
-
   const [deposits, setDeposits] = useState([]);
   const { data, error } = useSWR(
     "https://api.testnet.kabuto.sh/v1/account/0.0.5814/transaction?",
