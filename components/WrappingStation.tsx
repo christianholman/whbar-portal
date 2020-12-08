@@ -27,13 +27,13 @@ const WrappingStation: React.FC<DepositBoxProps> = () => {
     <div className="border shadow rounded max-w-lg mx-auto bg-white">
       <div className="grid grid-cols-2">
         <button 
-          className={`py-4 focus:outline-none ${currentTab === WrappingStationTab.MINT ? "text-blue-500 border-r" : "text-gray-400 border-b bg-gray-50"}`}
+          className={`border-b border-r border-transparent py-4 focus:outline-none ${currentTab === WrappingStationTab.MINT ? "text-blue-500" : "text-gray-400 border-gray-200 bg-gray-50"}`}
           onClick={() => setCurrentTab(WrappingStationTab.MINT)}
           >
           Deposit
         </button>
         <button 
-          className={`py-4 focus:outline-none ${currentTab === WrappingStationTab.RELEASE ? "text-blue-500 border-l" : "text-gray-400 border-b bg-gray-50"}`}
+          className={`border-b border-l border-transparent py-4 focus:outline-none ${currentTab === WrappingStationTab.RELEASE ? "text-blue-500" : "text-gray-400 border-gray-200 bg-gray-50"}`}
           onClick={() => setCurrentTab(WrappingStationTab.RELEASE)}
           >
           Release
