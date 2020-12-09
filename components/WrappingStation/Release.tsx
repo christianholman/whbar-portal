@@ -18,11 +18,13 @@ const Release: React.FC<ReleaseProps> = () => {
   const [accountId, setAccountId] = useState("");
 
   const handleRelease = async (amount, toAccount) => {
+    const cost = await whbarContract.checkCost();
     whbarContract.withdraw(
       (parseInt(amount) * (10**8)).toString(),
       toAccount,
       {
-        gasLimit: 5000000,
+        gasLimit: 400000,
+        value: Math.floor(cost / 10) + Number(cost),
       }
     );
   };
@@ -95,7 +97,7 @@ const Release: React.FC<ReleaseProps> = () => {
         <button 
           disabled={!isValid()}
           onClick={() => handleRelease(releaseAmount, accountId)}
-          className="transition text-lg px-4 py-2 font-medium text-white bg-blue-500 rounded shadow disabled:bg-gray-200 disabled:text-gray-400 disabled:shadow-none disabled:cursor-default">Release
+          className="transition text-lg px-4 py-2 font-medium text-white bg-blue-500 rounded shadow disabled:bg-gray-200 disabled:text-gray-400 disabled:shadow-none disabled:cursor-default">Unwrap
         </button>
       </div>
     </div>

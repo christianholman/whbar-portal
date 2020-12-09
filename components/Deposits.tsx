@@ -1,3 +1,4 @@
+import { useWeb3React } from "@web3-react/core";
 import { useState, useEffect } from "react";
 import useSWR from "swr";
 import useWHBARContract from "../hooks/useWHBARContract";
@@ -12,8 +13,10 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 const Deposits: React.FC<DepositsProps> = (props) => {
 
+  const { account } = useWeb3React();
+
   const [deposits, setDeposits] = useState([]);
-  const { data, error } = useSWR(
+  const { data, error, revalidate } = useSWR(
     "https://api.testnet.kabuto.sh/v1/account/0.0.5814/transaction?",
     fetcher,
     { 
