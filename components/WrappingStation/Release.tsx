@@ -30,7 +30,7 @@ const Release: React.FC<ReleaseProps> = () => {
   };
 
   const validAccountId = () => {
-    return /(^\d+.\d+.[1-9]\d*$)/.test(accountId);
+    return /(^\d+\.\d+\.[1-9]\d*$)/.test(accountId);
   }
 
   const canAfford = (): boolean => {
