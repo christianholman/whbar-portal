@@ -2,18 +2,23 @@ import { useState } from "react";
 import Mint from "./WrappingStation/Mint";
 import Release from "./WrappingStation/Release";
 
+type WrappingStationProps = {
+  account: string,
+  hederaAccount: string,
+}
+
 enum WrappingStationTab {
   MINT,
   RELEASE,
 }
 
-const WrappingStation: React.FC = () => {
+const WrappingStation: React.FC<WrappingStationProps> = (props) => {
   const [currentTab, setCurrentTab] = useState<WrappingStationTab>(WrappingStationTab.MINT);
 
   const renderCurrentTab = () => {
     switch (currentTab) {
       case WrappingStationTab.MINT:
-        return <Mint />
+        return <Mint account={props.account} hederaAccount={props.hederaAccount} />
       case WrappingStationTab.RELEASE:
         return <Release />
     };

@@ -1,11 +1,10 @@
-import { useWeb3React } from "@web3-react/core";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useSWR from "swr";
-import useWHBARContract from "../hooks/useWHBARContract";
 import Deposit from "./Deposit";
 
 type DepositsProps = {
   account: string,
+  hederaAccount: string,
 };
 
 //@ts-ignore
@@ -13,11 +12,9 @@ const fetcher = (...args) => fetch(...args).then((res) => res.json())
 
 const Deposits: React.FC<DepositsProps> = (props) => {
 
-  const { account } = useWeb3React();
-
   const [deposits, setDeposits] = useState([]);
-  const { data, error, revalidate } = useSWR(
-    "https://api.testnet.kabuto.sh/v1/account/0.0.5814/transaction?",
+  const { data, error } = useSWR(
+    `https://api.kabuto.sh/v1/account/${props.hederaAccount}/transaction?`,
     fetcher,
     { 
       refreshInterval: 1000,
@@ -27,7 +24,7 @@ const Deposits: React.FC<DepositsProps> = (props) => {
             let newDeposits = [];
             const transactions = data.transactions.filter(transaction => transaction.memo === props.account)
             for(let i = 0; i < transactions.length; i++) {
-              const amount = transactions[i].transfers.find(transfer => transfer.account === "0.0.5814").amount;
+              const amount = transactions[i].transfers.find(transfer => transfer.account === props.hederaAccount).amount;
               newDeposits.push({
                 ...transactions[i],
                 amount,

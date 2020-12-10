@@ -1,20 +1,17 @@
-import { useWeb3React } from "@web3-react/core";
 import QRCode from "react-qr-code";
 
 type MintProps = {
-
+  account: string
+  hederaAccount: string,
 };
 
-const Mint: React.FC<MintProps> = () => {
-
-  const hederaAccount = process.env.NEXT_PUBLIC_HEDERA_ACCOUNT;
-  const { account } = useWeb3React();
+const Mint: React.FC<MintProps> = (props) => {
 
   return (
     <div className="flex flex-col p-4">
       <div className="flex self-center justify-center pb-8">
         <QRCode 
-          value={`hedera:${hederaAccount}?m=${account}`}
+          value={`hedera:${props.hederaAccount}?m=${props.account}`}
         />
         </div>
       <div className="flex flex-col space-y-4">
@@ -23,7 +20,7 @@ const Mint: React.FC<MintProps> = () => {
             Account
           </label>
           <div className="rounded w-full flex justify-between">
-            <span className="text-sm text-gray-400 overflow-x-auto">{hederaAccount}</span>
+            <span className="text-sm text-gray-400 overflow-x-auto">{props.hederaAccount}</span>
           </div>
         </div>
         <div className="border p-4 flex flex-col w-full items-start rounded">
@@ -31,7 +28,7 @@ const Mint: React.FC<MintProps> = () => {
             Memo
           </label>
           <div className="rounded w-full flex justify-between">
-            <span className="text-sm text-gray-400 overflow-x-auto">{account}</span>
+            <span className="text-sm text-gray-400 overflow-x-auto">{props.hederaAccount}</span>
           </div>
         </div>
         <div className="flex flex-row items-center p-4">

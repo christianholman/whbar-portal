@@ -1,5 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NumberFormat from "react-number-format";
 import useERC20Balance from "../../hooks/useERC20Balance";
 import useWHBARContract from "../../hooks/useWHBARContract";
@@ -10,6 +10,7 @@ type ReleaseProps = {
 
 const Release: React.FC<ReleaseProps> = () => {
   const { account } = useWeb3React();
+
   const whbarContract = useWHBARContract(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS);
 
   const { data: whbarBalance } = useERC20Balance(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS, account)

@@ -1,11 +1,9 @@
-import WHBARBalance from "../components/WHBARBalance";
 import { useWeb3React } from "@web3-react/core";
 import Head from "next/head";
 import Link from "next/link";
 import Account from "../components/Account";
 import useEagerConnect from "../hooks/useEagerConnect";
-import Deposits from "../components/Deposits";
-import WrappingStation from "../components/WrappingStation";
+import Dashboard from "../components/Dashboard";
 
 export default function Home() {
   const { account, library } = useWeb3React();
@@ -33,13 +31,7 @@ export default function Home() {
 
       <main>
         {isConnected && (
-          <>
-            <section className="container mx-auto max-w-4xl space-y-4">
-              <WHBARBalance />
-              <WrappingStation />
-              <Deposits account={account}/>
-            </section>
-          </>
+          <Dashboard />
         )}
       </main>
 
