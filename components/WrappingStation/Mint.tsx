@@ -28,7 +28,7 @@ const Mint: React.FC<MintProps> = (props) => {
             Memo
           </label>
           <div className="rounded w-full flex justify-between">
-            <span className="text-sm text-gray-400 overflow-x-auto">{props.hederaAccount}</span>
+            <span className="text-sm text-gray-400 overflow-x-auto">{props.account}</span>
           </div>
         </div>
         <div className="flex flex-row items-center p-4">
