@@ -15,8 +15,9 @@ export default function Home() {
   return (
     <div className="p-4">
       <Head>
-        <title>Next Web3 Boilerplate</title>
-        <link rel="icon" href="/favicon.ico" />
+        <title>wHBAR Portal</title>
+        <link rel="icon" href="/favicon.png" />
+        <meta name="description" content="Use the wHBAR portal to mint wHBAR on ethereum." />
       </Head>
 
       <header>
