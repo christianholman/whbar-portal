@@ -6,7 +6,7 @@ import { injected } from "../connectors";
 import useENSName from "../hooks/useENSName";
 import { formatEtherscanLink, shortenHex } from "../util";
 
-const Account = ({ triedToEagerConnect }) => {
+const Account = () => {
   const {
     active,
     error,
@@ -15,70 +15,7 @@ const Account = ({ triedToEagerConnect }) => {
     account,
     setError,
   } = useWeb3React();
-
-  // initialize metamask onboarding
-  const onboarding = useRef(null);
-
-  useLayoutEffect(() => {
-    onboarding.current = new MetaMaskOnboarding();
-  }, []);
-
-  // manage connecting state for injected connector
-  const [connecting, setConnecting] = useState(false);
-  useEffect(() => {
-    if (active || error) {
-      setConnecting(false);
-      onboarding.current?.stopOnboarding();
-    }
-  }, [active, error]);
-
   const ENSName = useENSName(account);
-
-  if (error) {
-    return null;
-  }
-
-  if (!triedToEagerConnect) {
-    return null;
-  }
-
-  if (typeof account !== "string") {
-    const hasMetaMaskOrWeb3Available =
-      MetaMaskOnboarding.isMetaMaskInstalled() ||
-      window?.ethereum ||
-      window?.web3;
-
-    return (
-      <div>
-        {hasMetaMaskOrWeb3Available ? (
-          <button
-            className="btn-thicc btn-primary"
-            onClick={() => {
-              setConnecting(true);
-              activate(injected, undefined, true).catch((error) => {
-                // ignore the error if it's a user rejected request
-                if (error instanceof UserRejectedRequestError) {
-                  setConnecting(false);
-                } else {
-                  setError(error);
-                }
-              });
-            }}
-          >
-            {MetaMaskOnboarding.isMetaMaskInstalled()
-              ? "Connect to MetaMask"
-              : "Connect to Wallet"}
-          </button>
-        ) : (
-        <button 
-          className="btn-thicc btn-primary"
-          onClick={() => onboarding.current?.startOnboarding()}>
-            Install Metamask
-          </button>
-        )}
-      </div>
-    );
-  }
 
   return (
     <a
