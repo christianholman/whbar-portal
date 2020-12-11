@@ -5,6 +5,7 @@ import Account from "../components/Account";
 import useEagerConnect from "../hooks/useEagerConnect";
 import Dashboard from "../components/Dashboard";
 import ConnectionScreen from "../components/ConnectionScreen";
+import Footer from "../components/Footer";
 
 export default function Home() {
   const { account, library } = useWeb3React();
@@ -14,7 +15,7 @@ export default function Home() {
   const isConnected = typeof account === "string" && !!library;
 
   return (
-    <div>
+    <>
       <Head>
         <title>wHBAR Portal</title>
         <link rel="icon" href="/favicon.png" />
@@ -29,7 +30,8 @@ export default function Home() {
         ) : (
           <ConnectionScreen />
         )}
+        <Footer />
       </main>
-    </div>
+    </>
   );
 }

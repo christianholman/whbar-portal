@@ -14,6 +14,14 @@ const ETHERSCAN_PREFIXES = {
   42: "kovan.",
 };
 
+export const CHAIN_ID_NAMES = {
+  1: "Ethereum",
+  3: "Ropsten",
+  4: "Rinkeby",
+  5: "Goerli",
+  42: "Kovan",
+}
+
 /**
  *
  * @param {("Account"|"Transaction")} type
@@ -508,6 +516,7 @@ export const whbarABI = [
 			{
 				"name": "",
 				"type": "uint256"
+
 			}
 		],
 		"payable": false,

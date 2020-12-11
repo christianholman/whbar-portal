@@ -4,6 +4,15 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
+body > div:first-child,
+div#__next,
+div#__next > div,
+div#__next > div > div {
+  height: 100%;
+}
+
 * {
   font-family: 'Poppins', sans-serif;
 }
@@ -12,9 +21,6 @@ html {
   background-color: #fbfbfb;
 }
 
-body {
-  @apply text-gray-900;
-}
 
 .btn-thicc {
   @apply px-4 py-2 rounded-full font-bold transition;
@@ -34,6 +40,28 @@ body {
   margin: 0; 
 }
 
-main {
-  text-align: center;
-}
+* {
+  box-sizing: border-box;
+ }
+ *:before,
+ *:after {
+  box-sizing: border-box;
+ }
+ html,
+ body {
+  height: 100%;
+  position: relative;
+ }
+ main {
+  min-height: 100vh; /* will cover the 100% of viewport */
+  overflow: hidden;
+  display: block;
+  position: relative;
+  padding-bottom: 100px; /* height of your footer */
+ }
+
+ footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+ }

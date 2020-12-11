@@ -4,6 +4,7 @@ import { UserRejectedRequestError } from "@web3-react/injected-connector";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { injected } from "../connectors";
 import useEagerConnect from "../hooks/useEagerConnect";
+import { CHAIN_ID_NAMES } from "../util";
 
 const ConnectionScreen: React.FC = () => {
   const triedToEagerConnect = useEagerConnect();
@@ -36,8 +37,23 @@ const ConnectionScreen: React.FC = () => {
 
   if (error) {
     return (
-      <div>
-        Error connecting.
+      <div className="p-12 text-center">
+        <span className="mb-4">You're on the wrong network! Change to <span className="font-bold">{CHAIN_ID_NAMES[process.env.NEXT_PUBLIC_NETWORK_ID]}</span> then click to retry.</span>
+        <button 
+          className="transition w-full p-5 bg-blue-200 text-blue-800 font-bold rounded hover:bg-blue-300"
+          onClick={() => {
+            setConnecting(true);
+            activate(injected, undefined, true).catch((error) => {
+              // ignore the error if it's a user rejected request
+              if (error instanceof UserRejectedRequestError) {
+                setConnecting(false);
+              } else {
+                setError(error);
+              }
+            });
+          }}>
+            Connect to MetaMask
+        </button>
       </div>
     );
   }
