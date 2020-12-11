@@ -33,3 +33,7 @@ body {
   -webkit-appearance: none; 
   margin: 0; 
 }
+
+main {
+  text-align: center;
+}
