@@ -20,6 +20,7 @@ export default function Home() {
         <title>wHBAR Portal</title>
         <link rel="icon" href="/favicon.png" />
         <meta name="description" content="Use the wHBAR portal to mint wHBAR on ethereum." />
+        <base target="_blank"/>
       </Head>
 
       <main>
