@@ -21,7 +21,6 @@ const Account = () => {
     <a
       {...{
         href: formatEtherscanLink("Account", [chainId, account]),
-        target: "_blank",
         rel: "noopener noreferrer",
       }}
     >

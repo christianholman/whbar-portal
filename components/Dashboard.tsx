@@ -46,9 +46,16 @@ const Dashboard: React.FC = () => {
         </Modal>
           <header>
             <nav className="flex flex-row justify-between">
-              <Link href="/" >
-                wHBAR Portal
-              </Link>
+              <div>
+                <Link href="/">
+                  <a className="flex flex-row items-center">
+                    wHBAR Portal
+                    <div className="inline px-2 py-1 block bg-blue-200 text-xs text-blue-800 uppercase font-medium rounded-full ml-1">
+                      Beta
+                    </div>
+                  </a>
+                </Link>
+              </div>
               <div className="flex flex-col items-end self-center">
                 <Account />
                 <WHBARBalance />

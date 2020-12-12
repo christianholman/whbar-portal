@@ -33,6 +33,9 @@ const IntroductionModal: React.FC<IntroductionModalProps> = (props) => {
               We are only providing a simple way of interacting with the wHBAR smart contract. If you send HBAR to the wrong Hedera account or use the wrong memo (your ethereum address) you will lose your HBAR.
               We take <span className="font-bold">zero </span>responsibility for any funds lost.
             </p>
+            <p className="text-sm my-4 p-2 bg-red-100 rounded border-l-4 border-red-400">
+            wHBAR is beta software. Use at your own risk.
+            </p>
           <div className="flex justify-end pt-6">
             <button className="px-4 bg-blue-500 p-3 rounded text-white hover:bg-blue-400 hover:cursor-pointer" onClick={props.onClose}>Understand</button>
           </div>
