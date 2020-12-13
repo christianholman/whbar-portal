@@ -25,7 +25,7 @@ const WrappingStation: React.FC<WrappingStationProps> = (props) => {
   }
 
   return (
-    <div className="border shadow rounded max-w-lg mx-auto bg-white">
+    <div className="border max-w-lg shadow rounded mx-auto bg-white">
       <div className="grid grid-cols-2">
         <button className={`border-b border-r border-transparent py-4 focus:outline-none ${currentTab === WrappingStationTab.MINT ? "text-blue-500" : "text-gray-400 border-gray-200 bg-gray-50"}`}
           onClick={() => setCurrentTab(WrappingStationTab.MINT)}
