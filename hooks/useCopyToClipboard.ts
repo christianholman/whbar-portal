@@ -26,5 +26,5 @@ export default function useCopyToClipboard(resetInterval = null) {
     };
   }, [isCopied, resetInterval]);
 
-  return [isCopied, handleCopy];
+  return [isCopied, handleCopy] as const;
 }
