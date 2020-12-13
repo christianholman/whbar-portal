@@ -21,7 +21,7 @@ const CopyableInfo: React.FC<CopyableInfoProps> = (props) => {
         </div>
       </div>
       <div className="flex flex-row p-4 items-center">
-        <button className={`w-6 h-6 text-gray-400 focus:outline-none ${isCopied ? "text-green-700" : "text-gray-400"}`} title="COPY" onClick={() => handleCopy(props.content)}>
+        <button className={`w-6 h-6 text-gray-400 focus:outline-none ${isCopied ? "text-green-500" : "text-gray-400"}`} title="COPY" onClick={() => handleCopy(props.content)}>
           {
             isCopied ? (
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
