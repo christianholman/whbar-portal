@@ -8,7 +8,7 @@ import WrappingStation from "./WrappingStation";
 import Modal from "react-modal";
 import Account from "./Account";
 import Link from "next/link";
-import useTransactionReceipt from "../hooks/useTransactionReceipt";
+import ReactNotification from 'react-notifications-component'
 
 const Dashboard: React.FC = () => {
   const { account } = useWeb3React();
@@ -34,6 +34,7 @@ const Dashboard: React.FC = () => {
   return (
     hasLoaded ? (
       <>
+        <ReactNotification />
         <Modal
           isOpen={introductionModalShowing}
           onRequestClose={closeIntroductionModal}

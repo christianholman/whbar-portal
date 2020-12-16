@@ -24,6 +24,7 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-modal": "^3.12.1",
+    "react-notifications-component": "^3.0.3",
     "react-number-format": "^4.4.1",
     "react-query": "^2.26.3",
     "react-useinterval": "^1.0.2",

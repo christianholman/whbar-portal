@@ -1,10 +1,10 @@
 import { useWeb3React } from "@web3-react/core";
 import { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
-import { setFocusHandler } from "react-query";
 import useERC20Balance from "../../hooks/useERC20Balance";
 import useTransactionReceipt from "../../hooks/useTransactionReceipt";
 import useWHBARContract from "../../hooks/useWHBARContract";
+import { store } from "react-notifications-component";
 
 type ReleaseProps = {
 
@@ -28,10 +28,34 @@ const Release: React.FC<ReleaseProps> = () => {
       setIsReleasing(false);
       if (receipt.status == 0) {
         // Failed
-        console.log("Failed!")
+        store.addNotification({
+          title: "Transaction failed!",
+          message: "The release transaction reverted.",
+          type: "danger",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
       } else {
         // Confirmed
-        console.log("Succeeded!")
+        store.addNotification({
+          title: "HBAR Unwrapped!",
+          message: "Your wHBAR has been submitted for release and will shortly arrive in your account (can take up to a few hours)",
+          type: "success",
+          insert: "bottom",
+          container: "bottom-center",
+          animationIn: ["animate__animated", "animate__fadeIn"],
+          animationOut: ["animate__animated", "animate__fadeOut"],
+          dismiss: {
+            duration: 5000,
+            onScreen: true
+          }
+        });
       }
     }
   }, [receipt])

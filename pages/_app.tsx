@@ -1,6 +1,7 @@
 import { Web3Provider } from "@ethersproject/providers";
 import { Web3ReactProvider } from "@web3-react/core";
 import "../styles/global.css";
+import 'react-notifications-component/dist/theme.css'
 
 declare global {
     interface Window {
