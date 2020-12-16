@@ -8,6 +8,7 @@ import WrappingStation from "./WrappingStation";
 import Modal from "react-modal";
 import Account from "./Account";
 import Link from "next/link";
+import useTransactionReceipt from "../hooks/useTransactionReceipt";
 
 const Dashboard: React.FC = () => {
   const { account } = useWeb3React();
@@ -17,6 +18,7 @@ const Dashboard: React.FC = () => {
   const [ hederaAccount, setHederaAccount ] = useState("");
   const [ hasLoaded, setHasLoaded ] = useState(false);
   const [ introductionModalShowing, setIntroductionModalShowing ] = useState(true);
+
 
   useEffect(() => {
     whbarContract._fromAccount().then(account => {
