@@ -16,12 +16,16 @@ const WrappingStation: React.FC<WrappingStationProps> = (props) => {
   const [currentTab, setCurrentTab] = useState<WrappingStationTab>(WrappingStationTab.MINT);
 
   const renderCurrentTab = () => {
-    switch (currentTab) {
-      case WrappingStationTab.MINT:
-        return <Mint account={props.account} hederaAccount={props.hederaAccount} />
-      case WrappingStationTab.RELEASE:
-        return <Release />
-    };
+    return (
+      <>
+        <div style={{ display: currentTab === WrappingStationTab.MINT ? 'block': 'none'}}>
+          <Mint account={props.account} hederaAccount={props.hederaAccount} />
+        </div>
+        <div style={{ display: currentTab === WrappingStationTab.RELEASE ? 'block': 'none'}}>
+          <Release />
+        </div>
+      </>
+    );
   }
 
   return (
