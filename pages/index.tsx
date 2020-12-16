@@ -1,7 +1,5 @@
 import { useWeb3React } from "@web3-react/core";
 import Head from "next/head";
-import Link from "next/link";
-import Account from "../components/Account";
 import useEagerConnect from "../hooks/useEagerConnect";
 import Dashboard from "../components/Dashboard";
 import ConnectionScreen from "../components/ConnectionScreen";

@@ -1,7 +1,9 @@
 import { useWeb3React } from "@web3-react/core";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import NumberFormat from "react-number-format";
+import { setFocusHandler } from "react-query";
 import useERC20Balance from "../../hooks/useERC20Balance";
+import useTransactionReceipt from "../../hooks/useTransactionReceipt";
 import useWHBARContract from "../../hooks/useWHBARContract";
 
 type ReleaseProps = {
@@ -18,9 +20,25 @@ const Release: React.FC<ReleaseProps> = () => {
   const [actualReleaseAmount, setActualReleaseAmount] = useState(0)
   const [accountId, setAccountId] = useState("");
 
+  const [isReleasing, setIsReleasing] = useState(false);
+  const [receipt, setReceipt] = useTransactionReceipt(null);
+
+  useEffect(() => {
+    if (isReleasing && receipt ) {
+      setIsReleasing(false);
+      if (receipt.status == 0) {
+        // Failed
+        console.log("Failed!")
+      } else {
+        // Confirmed
+        console.log("Succeeded!")
+      }
+    }
+  }, [receipt])
+
   const handleRelease = async (amount, toAccount) => {
     const cost = await whbarContract.checkCost();
-    whbarContract.withdraw(
+    const receipt = await whbarContract.withdraw(
       (parseInt(amount) * (10**8)).toString(),
       toAccount,
       {
@@ -28,6 +46,9 @@ const Release: React.FC<ReleaseProps> = () => {
         value: Math.floor(cost / 10) + Number(cost),
       }
     );
+
+    setReceipt(receipt.hash);
+    setIsReleasing(true);
   };
 
   const validAccountId = () => {
@@ -96,9 +117,24 @@ const Release: React.FC<ReleaseProps> = () => {
           />
         </div>
         <button 
-          disabled={!isValid()}
+          disabled={!isValid() || isReleasing}
           onClick={() => handleRelease(releaseAmount, accountId)}
-          className="transition text-lg px-4 py-2 font-medium text-white bg-blue-500 rounded shadow disabled:bg-gray-200 disabled:text-gray-400 disabled:shadow-none disabled:cursor-default">Unwrap
+          className={`flex flex-row justify-center items-center transition text-lg px-5 py-2 font-medium text-white rounded shadow ${!isReleasing ? "bg-blue-500 disabled:bg-gray-200 disabled:text-gray-400 disabled:shadow-none" : "bg-blue-200"} disabled:cursor-default`}>
+            {
+              isReleasing ? (
+                <>
+                  <svg className="animate-spin mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Processing
+                </>
+              ) : (
+                <>
+                  Release
+                </>
+              )
+            }
         </button>
       </div>
     </div>
