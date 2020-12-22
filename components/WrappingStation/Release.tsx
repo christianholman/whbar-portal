@@ -6,6 +6,15 @@ import useTransactionReceipt from "../../hooks/useTransactionReceipt";
 import useWHBARContract from "../../hooks/useWHBARContract";
 import { store } from "react-notifications-component";
 
+import {
+  NoEthereumProviderError,
+  UserRejectedRequestError as UserRejectedRequestErrorInjected
+} from '@web3-react/injected-connector'
+
+import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from '@web3-react/walletconnect-connector'
+import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from '@web3-react/frame-connector'
+
+
 type ReleaseProps = {
 
 };
@@ -62,17 +71,22 @@ const Release: React.FC<ReleaseProps> = () => {
 
   const handleRelease = async (amount, toAccount) => {
     const cost = await whbarContract.checkCost();
-    const receipt = await whbarContract.withdraw(
-      (parseInt(amount) * (10**8)).toString(),
-      toAccount,
-      {
-        gasLimit: 400000,
-        value: Math.floor(cost / 10) + Number(cost),
-      }
-    );
+    try{
+      const receipt = await whbarContract.withdraw(
+        (parseInt(amount) * (10**8)).toString(),
+        toAccount,
+        {
+          gasLimit: 400000,
+          value: Math.floor(cost / 10) + Number(cost),
+        }
+      );
 
-    setReceipt(receipt.hash);
-    setIsReleasing(true);
+      setReceipt(receipt.hash);
+      setIsReleasing(true);
+    } catch(error){
+      console.log(error);
+    }
+
   };
 
   const validAccountId = () => {

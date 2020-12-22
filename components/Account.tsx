@@ -1,6 +1,13 @@
 import MetaMaskOnboarding from "@metamask/onboarding";
 import { useWeb3React } from "@web3-react/core";
-import { UserRejectedRequestError } from "@web3-react/injected-connector";
+import {
+  NoEthereumProviderError,
+  UserRejectedRequestError as UserRejectedRequestErrorInjected
+} from '@web3-react/injected-connector'
+
+import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from '@web3-react/walletconnect-connector'
+import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from '@web3-react/frame-connector'
+
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { injected } from "../connectors";
 import useENSName from "../hooks/useENSName";

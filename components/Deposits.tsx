@@ -33,7 +33,14 @@ const Deposits: React.FC<DepositsProps> = (props) => {
             setDeposits(newDeposits)
           }
         })()
-      }
+      },
+      onError: (data) => {
+        (async () => {
+          console.log("kabuto errored again.")
+        })()
+      },
+      errorRetryInterval: 5000,
+      shouldRetryOnError: true
     },
   );
 
