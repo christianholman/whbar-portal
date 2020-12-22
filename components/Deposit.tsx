@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useWHBARContract from "../hooks/useWHBARContract";
 import useLocalStorage from "../hooks/useLocalStorage";
 import { useWeb3React } from "@web3-react/core";
+
 import useInterval from "react-useinterval";
 
 type DepositProps = {
@@ -74,7 +75,10 @@ const Deposit: React.FC<DepositProps> = ({ deposit, account }) => {
     (async () => {
       setIsValidated(await whbarContract.checkTxHash(deposit.hash));
     })()
-  });
+  }
+
+  );
+
 
 return (
     <div className="flex flex-row justify-between shadow rounded p-4 items-center bg-white">

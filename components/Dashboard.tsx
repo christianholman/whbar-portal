@@ -21,6 +21,7 @@ const Dashboard: React.FC = () => {
 
 
   useEffect(() => {
+    console.log(whbarContract)
     whbarContract._fromAccount().then(account => {
       setHederaAccount(account);
       setHasLoaded(true);
