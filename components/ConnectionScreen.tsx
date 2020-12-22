@@ -1,3 +1,5 @@
+import React from 'react'
+
 import MetaMaskOnboarding from "@metamask/onboarding";
 import { useWeb3React } from "@web3-react/core";
 
@@ -23,8 +25,6 @@ import useEagerConnect from "../hooks/useEagerConnect";
 import { CHAIN_ID_NAMES } from "../util";
 
 enum ConnectorNames {
-  Injected = 'Injected',
-  Network = 'Network',
   WalletConnect = 'WalletConnect',
   WalletLink = 'WalletLink'
 }
@@ -37,8 +37,8 @@ const connectorsByName: { [connectorName in ConnectorNames]: any } = {
 const ConnectionScreen: React.FC = () => {
   const triedToEagerConnect = useEagerConnect();
 
-  const context = useWeb3React<Web3Provider>()
-  const { connector, library, chainId, account, activate, deactivate, active, error } = context
+  const context = useWeb3React()
+  const { connector, library, chainId, account, activate, deactivate, active, error, setError } = context
 
   // initialize metamask onboarding
   const onboarding = useRef(null);
@@ -75,7 +75,7 @@ const ConnectionScreen: React.FC = () => {
             setConnecting(true);
             activate(injected, undefined, true).catch((error) => {
               // ignore the error if it's a user rejected request
-              if (error instanceof UserRejectedRequestError) {
+              if (error instanceof UserRejectedRequestErrorInjected || error instanceof UserRejectedRequestErrorWalletConnect || error instanceof UserRejectedRequestErrorFrame) {
                 setConnecting(false);
               } else {
                 setError(error);
@@ -160,7 +160,7 @@ const ConnectionScreen: React.FC = () => {
                     setConnecting(true);
                     activate(injected, undefined, true).catch((error) => {
                       // ignore the error if it's a user rejected request
-                      if (error instanceof UserRejectedRequestError) {
+              if (error instanceof UserRejectedRequestErrorInjected || error instanceof UserRejectedRequestErrorWalletConnect || error instanceof UserRejectedRequestErrorFrame) {
                         setConnecting(false);
                       } else {
                         setError(error);
