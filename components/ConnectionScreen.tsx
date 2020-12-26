@@ -1,3 +1,4 @@
+import React from "react";
 import MetaMaskOnboarding from "@metamask/onboarding";
 import { useWeb3React } from "@web3-react/core";
 
@@ -21,14 +22,16 @@ import {
 
 import useEagerConnect from "../hooks/useEagerConnect";
 import { CHAIN_ID_NAMES } from "../util";
+import { Web3Provider } from "@ethersproject/providers";
 
 enum ConnectorNames {
   Injected = 'Injected',
   Network = 'Network',
   WalletConnect = 'WalletConnect',
   WalletLink = 'WalletLink'
-}
+};
 
+//@ts-ignore
 const connectorsByName: { [connectorName in ConnectorNames]: any } = {
   [ConnectorNames.WalletConnect]: walletconnect,
   [ConnectorNames.WalletLink]: walletlink,
@@ -75,11 +78,7 @@ const ConnectionScreen: React.FC = () => {
             setConnecting(true);
             activate(injected, undefined, true).catch((error) => {
               // ignore the error if it's a user rejected request
-              if (error instanceof UserRejectedRequestError) {
-                setConnecting(false);
-              } else {
-                setError(error);
-              }
+              setConnecting(false);
             });
           }}>
             Connect to MetaMask
@@ -160,11 +159,7 @@ const ConnectionScreen: React.FC = () => {
                     setConnecting(true);
                     activate(injected, undefined, true).catch((error) => {
                       // ignore the error if it's a user rejected request
-                      if (error instanceof UserRejectedRequestError) {
-                        setConnecting(false);
-                      } else {
-                        setError(error);
-                      }
+                      setConnecting(false);
                     });
                   }}
                 >
