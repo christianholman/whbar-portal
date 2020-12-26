@@ -49,7 +49,7 @@ const Dashboard: React.FC = () => {
           <IntroductionModal onClose={closeIntroductionModal}/>
         </Modal>
           <header>
-            <nav className="flex flex-row justify-between">
+            <nav className="flex flex-row justify-center md:justify-between mb-4">
               <div>
                 <Link href="/">
                   <a className="flex flex-row items-center">
@@ -60,9 +60,8 @@ const Dashboard: React.FC = () => {
                   </a>
                 </Link>
               </div>
-              <div className="flex flex-col items-end self-center">
+              <div className="hidden md:block">
                 <Account />
-                <WHBARBalance />
               </div>
             </nav>
           </header>

@@ -12,27 +12,33 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { injected } from "../connectors";
 import useENSName from "../hooks/useENSName";
 import { formatEtherscanLink, shortenHex } from "../util";
+import useERC20Balance from "../hooks/useERC20Balance";
 
-const Account = () => {
+const Account: React.FC = () => {
   const {
-    active,
-    error,
-    activate,
-    chainId,
     account,
-    setError,
+    chainId,
   } = useWeb3React();
+
   const ENSName = useENSName(account);
+  const { data: balance } = useERC20Balance(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS, account);
 
   return (
-    <a
-      {...{
-        href: formatEtherscanLink("Account", [chainId, account]),
-        rel: "noopener noreferrer",
-      }}
+    <div
+      className="flex flex-row items-center border border-gray-100 bg-gray-100 rounded-full"
     >
-      {ENSName || `${shortenHex(account, 4)}`}
-    </a>
+      <div className="rounded-full px-2">
+        {balance} wHBAR
+      </div>
+      <a 
+        href={formatEtherscanLink("Account", [chainId, account])}
+        rel="noopener noreferrer"
+        className="flex flex-row items-center bg-gray-50 px-2 rounded-full"
+      >
+        <div className="w-1 h-1 rounded-full bg-green-400 mr-2" />
+        {ENSName || `${shortenHex(account)}`}
+      </a>
+    </div>
   );
 };
 

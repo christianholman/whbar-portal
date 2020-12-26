@@ -8,8 +8,6 @@ import Footer from "../components/Footer";
 export default function Home() {
   const { account, library } = useWeb3React();
 
-  const triedToEagerConnect = useEagerConnect();
-
   const isConnected = typeof account === "string" && !!library;
 
   return (
