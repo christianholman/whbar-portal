@@ -60,9 +60,8 @@ const Dashboard: React.FC = () => {
                   </a>
                 </Link>
               </div>
-              <div className="flex flex-col items-end self-center">
+              <div className="hidden md:block">
                 <Account />
-                <WHBARBalance />
               </div>
             </nav>
           </header>
