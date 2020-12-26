@@ -41,7 +41,7 @@ const ConnectionScreen: React.FC = () => {
   const triedToEagerConnect = useEagerConnect();
 
   const context = useWeb3React<Web3Provider>()
-  const { connector, library, chainId, account, activate, deactivate, active, error } = context
+  const { connector, library, chainId, account, activate, deactivate, active, error, setError } = context
 
   // initialize metamask onboarding
   const onboarding = useRef(null);
@@ -79,6 +79,7 @@ const ConnectionScreen: React.FC = () => {
             activate(injected, undefined, true).catch((error) => {
               // ignore the error if it's a user rejected request
               setConnecting(false);
+              setError(error);
             });
           }}>
             Connect to MetaMask
@@ -160,6 +161,7 @@ const ConnectionScreen: React.FC = () => {
                     activate(injected, undefined, true).catch((error) => {
                       // ignore the error if it's a user rejected request
                       setConnecting(false);
+                      setError(error);
                     });
                   }}
                 >
